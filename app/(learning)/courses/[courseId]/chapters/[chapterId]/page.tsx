@@ -40,7 +40,11 @@ export default function ChapterPage({ params }: PageProps) {
   return (
     <div className="flex h-screen">
       <div className="flex-1 flex flex-col">
-        <VideoPlayer />
+        <VideoPlayer 
+          src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+          onMouseEnter={() => {}}
+          onMouseLeave={() => {}}
+        />
         <NavigationArrows 
           courseId={courseId} 
           currentChapterId={chapterId} 
