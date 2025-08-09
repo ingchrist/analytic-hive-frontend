@@ -46,8 +46,12 @@ export default function ChapterPage({ params }: PageProps) {
           onMouseLeave={() => {}}
         />
         <NavigationArrows 
-          courseId={courseId} 
-          currentChapterId={chapterId} 
+          canGoPrevious={true}
+          canGoNext={true}
+          onPrevious={() => console.log("Go to previous chapter")}
+          onNext={() => console.log("Go to next chapter")}
+          previousTitle="Previous Chapter"
+          nextTitle="Next Chapter"
         />
       </div>
 
