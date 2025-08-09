@@ -30,7 +30,7 @@ export default function AuthPage() {
   // Update mode when URL parameters change
   useEffect(() => {
     setCurrentMode(getInitialMode())
-  }, [searchParams])
+  }, [searchParams, getInitialMode])
   
   // Check for verification message
   useEffect(() => {

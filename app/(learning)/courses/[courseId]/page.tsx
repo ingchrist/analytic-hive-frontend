@@ -39,7 +39,7 @@ export default function CourseDetailPage({ params }: { params: { courseId: strin
 
           <Card>
             <CardHeader>
-              <CardTitle>What you'll learn</CardTitle>
+              <CardTitle>What you&apos;ll learn</CardTitle>
             </CardHeader>
             <CardContent>
               <ul className="space-y-2">

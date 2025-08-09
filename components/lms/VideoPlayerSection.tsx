@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { VideoPlayer } from '@/components/lms/VideoPlayer';
 import { VideoControls } from '@/components/lms/VideoControls';
 import { CheckCircle } from 'lucide-react';
@@ -138,9 +138,9 @@ export const VideoPlayerSection: React.FC<VideoPlayerSectionProps> = ({
 
     document.addEventListener('keydown', handleKeyPress);
     return () => document.removeEventListener('keydown', handleKeyPress);
-  }, [volume]);
+  }, [volume, togglePlay, skipForward, skipBackward, toggleMute, handleVolumeChange]);
 
-  const togglePlay = () => {
+  const togglePlay = useCallback(() => {
     const video = videoRef.current;
     if (!video) return;
 
@@ -149,47 +149,47 @@ export const VideoPlayerSection: React.FC<VideoPlayerSectionProps> = ({
     } else {
       video.play();
     }
-  };
+  }, [isPlaying]);
 
-  const handleSeek = (time: number) => {
+  const handleSeek = useCallback((time: number) => {
     const video = videoRef.current;
     if (!video) return;
     
     video.currentTime = time;
     setCurrentTime(time);
-  };
+  }, []);
 
-  const skipForward = () => {
+  const skipForward = useCallback(() => {
     const video = videoRef.current;
     if (!video) return;
     
     video.currentTime = Math.min(video.currentTime + 10, duration);
-  };
+  }, [duration]);
 
-  const skipBackward = () => {
+  const skipBackward = useCallback(() => {
     const video = videoRef.current;
     if (!video) return;
     
     video.currentTime = Math.max(video.currentTime - 10, 0);
-  };
+  }, []);
 
-  const handleVolumeChange = (newVolume: number) => {
+  const handleVolumeChange = useCallback((newVolume: number) => {
     const video = videoRef.current;
     if (!video) return;
 
     video.volume = newVolume;
     setVolume(newVolume);
     setIsMuted(newVolume === 0);
-  };
+  }, []);
 
-  const toggleMute = () => {
+  const toggleMute = useCallback(() => {
     const video = videoRef.current;
     if (!video) return;
 
     const newMuted = !isMuted;
     video.muted = newMuted;
     setIsMuted(newMuted);
-  };
+  }, [isMuted]);
 
   const changePlaybackRate = (rate: number) => {
     const video = videoRef.current;
