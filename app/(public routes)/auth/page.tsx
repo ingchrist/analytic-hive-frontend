@@ -5,11 +5,11 @@ import type { LoginFormData, SignupFormData } from "@/lib/validations"
 import { useAuth } from "@/contexts/AuthContext"
 import { useRouter, useSearchParams } from "next/navigation"
 import { toast } from "sonner"
-import { useEffect, useState, useCallback } from "react"
+import { useEffect, useState, useCallback, Suspense } from "react"
 
 type AuthMode = "login" | "signup"
 
-export default function AuthPage() {
+function AuthPageContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { isAuthenticated, isLoading } = useAuth()
@@ -115,5 +115,17 @@ export default function AuthPage() {
         onGoogleSignIn={handleGoogleSignIn}
       />
     </div>
+  )
+}
+
+export default function AuthPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-orange-500"></div>
+      </div>
+    }>
+      <AuthPageContent />
+    </Suspense>
   )
 }
