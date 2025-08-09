@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
-import { tokenStorage, formatError } from './utils'
+import { tokenStorage } from './utils'
 import { toast } from 'sonner'
 
 // API Response types
