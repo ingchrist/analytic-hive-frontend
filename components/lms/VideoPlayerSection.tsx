@@ -96,50 +96,6 @@ export const VideoPlayerSection: React.FC<VideoPlayerSectionProps> = ({
     }
   }, [lecture?.id]);
 
-  useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.target && (e.target as HTMLElement).tagName === 'INPUT') return;
-      
-      switch (e.code) {
-        case 'Space':
-          e.preventDefault();
-          togglePlay();
-          break;
-        case 'ArrowLeft':
-          if (!e.altKey) {
-            e.preventDefault();
-            skipBackward();
-          }
-          break;
-        case 'ArrowRight':
-          if (!e.altKey) {
-            e.preventDefault();
-            skipForward();
-          }
-          break;
-        case 'KeyF':
-          e.preventDefault();
-          toggleFullscreen();
-          break;
-        case 'KeyM':
-          e.preventDefault();
-          toggleMute();
-          break;
-        case 'ArrowUp':
-          e.preventDefault();
-          handleVolumeChange(Math.min(volume + 0.1, 1));
-          break;
-        case 'ArrowDown':
-          e.preventDefault();
-          handleVolumeChange(Math.max(volume - 0.1, 0));
-          break;
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyPress);
-    return () => document.removeEventListener('keydown', handleKeyPress);
-  }, [volume, togglePlay, skipForward, skipBackward, toggleMute, handleVolumeChange]);
-
   const togglePlay = useCallback(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -190,6 +146,50 @@ export const VideoPlayerSection: React.FC<VideoPlayerSectionProps> = ({
     video.muted = newMuted;
     setIsMuted(newMuted);
   }, [isMuted]);
+
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.target && (e.target as HTMLElement).tagName === 'INPUT') return;
+      
+      switch (e.code) {
+        case 'Space':
+          e.preventDefault();
+          togglePlay();
+          break;
+        case 'ArrowLeft':
+          if (!e.altKey) {
+            e.preventDefault();
+            skipBackward();
+          }
+          break;
+        case 'ArrowRight':
+          if (!e.altKey) {
+            e.preventDefault();
+            skipForward();
+          }
+          break;
+        case 'KeyF':
+          e.preventDefault();
+          toggleFullscreen();
+          break;
+        case 'KeyM':
+          e.preventDefault();
+          toggleMute();
+          break;
+        case 'ArrowUp':
+          e.preventDefault();
+          handleVolumeChange(Math.min(volume + 0.1, 1));
+          break;
+        case 'ArrowDown':
+          e.preventDefault();
+          handleVolumeChange(Math.max(volume - 0.1, 0));
+          break;
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyPress);
+    return () => document.removeEventListener('keydown', handleKeyPress);
+  }, [volume, togglePlay, skipForward, skipBackward, toggleMute, handleVolumeChange]);
 
   const changePlaybackRate = (rate: number) => {
     const video = videoRef.current;
