@@ -4,6 +4,7 @@ import { VideoPlayer } from "@/components/lms/VideoPlayer"
 import { CourseSidebar } from "@/components/lms/CourseSidebar"
 import { NavigationArrows } from "@/components/lms/NavigationArrows"
 import { SidebarTabs } from "@/components/lms/SidebarTabs"
+import { useEffect, useState } from "react"
 
 interface PageProps {
   params: Promise<{
@@ -12,8 +13,30 @@ interface PageProps {
   }>
 }
 
-export default async function ChapterPage({ params }: PageProps) {
-  const { courseId, chapterId } = await params
+export default function ChapterPage({ params }: PageProps) {
+  const [courseId, setCourseId] = useState<string>("")
+  const [chapterId, setChapterId] = useState<string>("")
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    async function loadParams() {
+      try {
+        const resolvedParams = await params
+        setCourseId(resolvedParams.courseId)
+        setChapterId(resolvedParams.chapterId)
+      } catch (error) {
+        console.error("Error loading params:", error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    loadParams()
+  }, [params])
+
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
   return (
     <div className="flex h-screen">
       <div className="flex-1 flex flex-col">
