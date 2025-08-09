@@ -1,8 +1,11 @@
+"use client"
+
 import { notFound } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowLeft, Play } from "lucide-react"
 import { CourseAccordion } from "../_components/course-accordion"
+import { useEffect, useState } from "react"
 type PageProps = {
   params: Promise<{ courseId: string }>;
 };

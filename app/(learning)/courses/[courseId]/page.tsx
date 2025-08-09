@@ -6,9 +6,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { PlayCircle, Clock, Users, Star } from "lucide-react"
 import Link from "next/link"
-
-"use client"
-
 import { useEffect, useState } from "react"
 
 interface PageProps {
