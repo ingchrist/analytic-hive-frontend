@@ -7,7 +7,38 @@ import { Badge } from "@/components/ui/badge"
 import { PlayCircle, Clock, Users, Star } from "lucide-react"
 import Link from "next/link"
 
-export default function CourseDetailPage({ params }: { params: { courseId: string } }) {
+"use client"
+
+import { useEffect, useState } from "react"
+
+interface PageProps {
+  params: Promise<{
+    courseId: string
+  }>
+}
+
+export default function CourseDetailPage({ params }: PageProps) {
+  const [courseId, setCourseId] = useState<string>("")
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    async function loadParams() {
+      try {
+        const resolvedParams = await params
+        setCourseId(resolvedParams.courseId)
+      } catch (error) {
+        console.error("Error loading params:", error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    loadParams()
+  }, [params])
+
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
   return (
     <div className="container mx-auto px-4 py-6">
       <div className="grid gap-6 lg:grid-cols-3">
