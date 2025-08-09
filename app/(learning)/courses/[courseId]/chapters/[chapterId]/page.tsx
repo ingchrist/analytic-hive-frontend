@@ -17,6 +17,7 @@ export default function ChapterPage({ params }: PageProps) {
   const [courseId, setCourseId] = useState<string>("")
   const [chapterId, setChapterId] = useState<string>("")
   const [isLoading, setIsLoading] = useState(true)
+  const [activeTab, setActiveTab] = useState<string>("curriculum")
 
   useEffect(() => {
     async function loadParams() {
@@ -56,7 +57,10 @@ export default function ChapterPage({ params }: PageProps) {
       </div>
 
       <div className="w-80 border-l">
-        <SidebarTabs />
+        <SidebarTabs 
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+        />
       </div>
     </div>
   )
