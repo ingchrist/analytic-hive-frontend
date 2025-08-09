@@ -5,7 +5,7 @@ import type { LoginFormData, SignupFormData } from "@/lib/validations"
 import { useAuth } from "@/contexts/AuthContext"
 import { useRouter, useSearchParams } from "next/navigation"
 import { toast } from "sonner"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 
 type AuthMode = "login" | "signup"
 
@@ -13,9 +13,9 @@ export default function AuthPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { isAuthenticated, isLoading } = useAuth()
-  
+
   // Determine initial mode based on URL parameters or default to login
-  const getInitialMode = (): AuthMode => {
+  const getInitialMode = useCallback((): AuthMode => {
     try {
       const mode = searchParams.get('mode')
       return mode === 'signup' ? 'signup' : 'login'
@@ -23,15 +23,15 @@ export default function AuthPage() {
       // Fallback for SSR or when searchParams is not available
       return 'login'
     }
-  }
-  
+  }, [searchParams])
+
   const [currentMode, setCurrentMode] = useState<AuthMode>(getInitialMode())
-  
+
   // Update mode when URL parameters change
   useEffect(() => {
     setCurrentMode(getInitialMode())
-  }, [searchParams, getInitialMode])
-  
+  }, [getInitialMode])
+
   // Check for verification message
   useEffect(() => {
     const message = searchParams.get('message')

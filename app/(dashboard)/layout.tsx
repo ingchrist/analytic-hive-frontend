@@ -1,5 +1,5 @@
 
-import { Navbar } from "@/components/shared/navbar";
+import Navbar from "@/components/shared/navbar";
 import { Sidebar } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Trophy, ShoppingCart, Heart, BarChart3, HelpCircle, Settings, CreditCard } from "lucide-react";
