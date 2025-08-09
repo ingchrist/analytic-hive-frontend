@@ -1,21 +1,8 @@
-
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl
-
-  // Skip middleware for static files and API routes
-  if (
-    pathname.startsWith('/_next/') ||
-    pathname.startsWith('/api/') ||
-    pathname.includes('.') ||
-    pathname.startsWith('/favicon')
-  ) {
-    return NextResponse.next()
-  }
-
-  // Allow all routes to proceed - let client-side handle authentication
+  // Just pass through all requests - no authentication logic in middleware
   return NextResponse.next()
 }
 
