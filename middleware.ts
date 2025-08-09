@@ -1,15 +1,21 @@
+
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // Let client-side handle authentication for protected routes
-  // The AuthContext will handle redirects appropriately
-  
-  // Only handle static redirects here
-  // For example, redirect root to home page if needed
-  
+  // Skip middleware for static files and API routes
+  if (
+    pathname.startsWith('/_next/') ||
+    pathname.startsWith('/api/') ||
+    pathname.includes('.') ||
+    pathname.startsWith('/favicon')
+  ) {
+    return NextResponse.next()
+  }
+
+  // Allow all routes to proceed - let client-side handle authentication
   return NextResponse.next()
 }
 
