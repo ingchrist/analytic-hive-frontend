@@ -40,7 +40,6 @@ export const signupSchema = z.object({
     .min(1, "Please confirm your password"),
   user_type: z
     .string()
-    .optional()
     .default("student"),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
